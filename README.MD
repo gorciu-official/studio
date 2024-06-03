@@ -8,7 +8,8 @@ This table will help you search for the releases of Gorciu Studio and will help 
 
 * [Downloading](#downloading)
     * [Stable versions](#stable-versions)
-    * [Beta builds](#beta-versions)
+    * [Beta versions](#beta-versions)
+        * [Nightly builds]()
 * [Contributing](#contributing)
 * [Copyright information](#copyright)
 
@@ -28,6 +29,10 @@ This section will help you with downloading the software and running it in a nor
 2. Search for the release tagged **Pre-release**. Don't touch the releases tagged **Latest**.
 3. Download the source code from `.zip` or `.tar.gz`.
 4. Run it following the instructions in [contributing](#contributing) section.
+
+#### Nightly builds
+
+The nightly builds are generally the builds builded from the source code. I make many changes in code before I decide to make an release so download the source code and see the [contributing](#contributing) section.
 
 ## Contributing
 
