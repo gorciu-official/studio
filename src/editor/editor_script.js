@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     changeTitle('Welcome');
-    loadFilesAndFolders();
 });
+
+function openFileTab(filename) {}
+
+function openTab(type, name) {
+    if (!type || !name) {
+        return false;
+    }
+    
+    if (type=='file') {
+        return openFileTab(name);
+    }
+}
