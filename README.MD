@@ -1,7 +1,5 @@
 # Gorciu Studio
 
-[![Created with Node.JS](https://img.shields.io/badge/Created%20with%20Node.JS?logo=npm)](https://nodejs.org/)
-
 Welcome in Gorciu Studio - the new, interesting code editor with dark theme developed by Gorciu!
 
 ## Table of contents
