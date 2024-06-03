@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/.vscode": true
+    },
+    "files.readonlyInclude": {
+        "**/package-lock.json": true,
+        "**/package.json": true
+    }
+}
