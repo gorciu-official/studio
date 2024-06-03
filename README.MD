@@ -16,13 +16,13 @@ This section will help you with downloading the software and running it in a nor
 
 ### Stable versions
 
-1. Navigate to [Github Releases](https://github.com/gorciu/studio/releases)
+1. Navigate to [Github Releases](https://github.com/gorciu-official/studio/releases)
 2. Search for the release tagged **Latest**. Don't touch the releases tagged **Pre-release**.
 3. Download the attached `.EXE` file and install Gorciu Studio from it.
 
 ### Beta versions
 
-1. Navigate to [Github Releases](https://github.com/gorciu/studio/releases)
+1. Navigate to [Github Releases](https://github.com/gorciu-official/studio/releases)
 2. Search for the release tagged **Pre-release**. Don't touch the releases tagged **Latest**.
 3. Download the source code from `.zip` or `.tar.gz`.
 4. Run it following the instructions in [contributing](#contributing) section.
