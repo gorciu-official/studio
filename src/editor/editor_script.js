@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     changeTitle('Welcome');
 });
 
+var currentDir = null;
+
 // Opens card
 function openFileTab(filename) {
     console.log(`Opening file: ${filename}`);
@@ -101,11 +103,21 @@ async function getDirectoryStructure(directoryHandle) {
 async function openFileSystem() {
     try {
         const directoryHandle = await window.showDirectoryPicker();
+        currentDir = directoryHandle;
         const structure = await getDirectoryStructure(directoryHandle);
         openStructure(structure);
     } catch (error) {
         console.error('Error accessing file system:', error);
     }
+}
+
+function unopenFS() {
+    currentDir = null;
+    const filesIndex = document.querySelector('.files-index');
+    filesIndex.style.display = 'none';
+    filesIndex.innerHTML = '';
+    document.querySelector('.files-open').style.display = 'none';
+    document.querySelector('.files-open').style.display = 'block';
 }
 
 function createExampleFileStructure() {
