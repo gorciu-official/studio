@@ -10,6 +10,7 @@ This table will help you search for the releases of Gorciu Studio and will help 
     * [Stable versions](#stable-versions)
     * [Beta builds](#beta-versions)
 * [Contributing](#contributing)
+* [Copyright information](#copyright)
 
 ## Downloading
 
@@ -31,3 +32,9 @@ This section will help you with downloading the software and running it in a nor
 ## Contributing
 
 If you really want to contribute Gorciu Studio / run it from source code see the [CONTRIBUTING.MD](https://github.com/gorciu-official/studio/blob/main/CONTRIBUTING.MD) file for the informations about compiling Gorciu Studio and about running it from source code.
+
+## Copyright
+
+(C) 2024 Gorciu
+
+When you using this software you automatically agree my [license](https://github.com/gorciu-official/studio/blob/main/LICENSE.MD)
