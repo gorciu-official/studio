@@ -79,6 +79,7 @@ textarea::placeholder {
 .funcbar {
     width: calc((100% - 25px - 2px) - 85%);
     background-color: var(--background-functionbar);
+    overflow-y: auto;
 }
 
 .funcbar .view {
