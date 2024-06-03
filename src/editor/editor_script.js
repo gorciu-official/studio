@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Opens card
 
 function openFileTab(filename) {
-    // Implement logic to open the file tab
-    console.log(`Opening file tab: ${filename}`);
 }
 
 function openTab(type, name) {
@@ -39,8 +37,12 @@ function openStructure(files_json, returning) {
     if (returning) {
         return elements;
     } else {
+        document.querySelector('.files-open').setAttribute('style', 'display:none;');
+        const filesIndex = document.querySelector('.files-index');
+        filesIndex.innerHTML = '';
+        filesIndex.removeAttribute('display:none;');
         elements.forEach(el => {
-            document.getElementById('editor').appendChild(el);
+            filesIndex.appendChild(el);
         });
     }
 }
