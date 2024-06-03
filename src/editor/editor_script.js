@@ -5,24 +5,82 @@ document.addEventListener('DOMContentLoaded', () => {
 var currentDir = null;
 var nextTabId = 1;
 
-// Opens card
+async function readFileContents(filename, id) {
+    try {
+        const fileHandle = await currentDir.getFileHandle(filename);
+        const file = await fileHandle.getFile();
+        const reader = new FileReader();
+        
+        reader.onload = function(event) {
+            displayFileContent(event.target.result, id);
+        };
+        
+        reader.readAsText(file);
+    } catch (error) {
+        console.error('Error reading file:', error);
+        if (error instanceof DOMException && error.name === 'NotFoundError') {
+            console.error('File not found:', filename);
+        }
+    }
+}
+
+function displayFileContent(content, id) {
+    const currentView = document.querySelector('.view[data-tabid="'+id+'"]');
+
+    if (!currentView) {
+        console.error('View with id ' + id + ' does not exist.');
+        return;
+    }
+
+    const fileContentElement = document.createElement('div');
+    fileContentElement.classList.add('file-content');
+    fileContentElement.innerText = content;
+    
+    currentView.innerHTML = '';
+    
+    currentView.appendChild(fileContentElement);
+}
+
 function openFileTab(filename) {
     var view = document.createElement('div');
     view.dataset.tabid = nextTabId;
     view.classList.add('view');
-    view.innerHTML = '<i>Na razie dziala tylko fs api</i>';
 
     var tab = document.createElement('div');
     tab.dataset.tabid = nextTabId;
     tab.classList.add('tab');
     tab.textContent = filename;
 
+    document.querySelector('.views').appendChild(view);
+    document.querySelector('.tabs').appendChild(tab);
+
+    readFileContents(filename, nextTabId);
+
     nextTabId++;
 
     return switchTab(nextTabId - 1);
 }
 
-function openTab(type, name, content) {
+function switchTab(tab_id) {
+    var currentView = document.querySelector('.views .view.current');
+    if (currentView) {
+        currentView.classList.remove('current');
+    }
+    var currentTab = document.querySelector('.tabs .tab.current');
+    if (currentTab) {
+        currentTab.classList.remove('current');
+    }
+    var newView = document.querySelector('.views .view[data-tabid="'+tab_id+'"]');
+    var newTab = document.querySelector('.tabs .tab[data-tabid="'+tab_id+'"]');
+    if (newView && newTab) {
+        newView.classList.add('current');
+        newTab.classList.add('current');
+    } else {
+        console.error('Tab with id ' + tab_id + ' does not exist.');
+    }
+}
+
+function openTab(type, name) {
     if (!type || !name) {
         return false;
     }
@@ -34,10 +92,22 @@ function openTab(type, name, content) {
 
 // Switchs cards
 function switchTab(tab_id) {
-    document.querySelector('.views .view.current').classList.remove('current');
-    document.querySelector('.views .view[data-tabid='+tab_id+']').classList.add('current');
-    document.querySelector('.tabs .tab.current').classList.remove('current');
-    document.querySelector('.tabs .tab[data-tabid='+tab_id+']').classList.add('current');
+    var currentView = document.querySelector('.views .view.current');
+    if (currentView !== null) {
+        currentView.classList.remove('current');
+    }
+    var currentTab = document.querySelector('.tabs .tab.current');
+    if (currentTab !== null) {
+        currentTab.classList.remove('current');
+    }
+    var newView = document.querySelector('.views .view[data-tabid="'+tab_id+'"]');
+    var newTab = document.querySelector('.tabs .tab[data-tabid="'+tab_id+'"]');
+    if (newView !== null && newTab !== null) {
+        newView.classList.add('current');
+        newTab.classList.add('current');
+    } else {
+        console.error('Tab with id ' + tab_id + ' does not exist.');
+    }
 }
 
 // Opens files
@@ -139,6 +209,9 @@ function unopenFS() {
     filesIndex.innerHTML = '';
     document.querySelector('.files-open').style.display = 'none';
     document.querySelector('.files-open').style.display = 'block';
+
+    var edt = document.querySelector('.editor');
+    edt.innerHTML = '<div class="tabs"></div><div class="views"></div>';
 }
 
 function createExampleFileStructure() {
