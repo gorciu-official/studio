@@ -5,6 +5,8 @@ This document contains informations how to contribute to Gorciu Studio or run it
 * [Installing Node.JS packages](#installing-the-gorciu-studio-dependencies)
     * [Troobleshooting](#troubleshotting-dependencies-installation)
 * [Running project](#running-the-gorciu-studio)
+* [Bug reporing](#bug-reporting)
+* [Other ways to help the project](#other-ways-to-help-the-project)
 
 ## Installing the Gorciu Studio dependencies
 
@@ -28,3 +30,13 @@ If you see the errors use this section to delete them.
 After installing the Gorciu Studio dependencies you can run or compile project. If you want to run the project use this command:
 
 ```npm start```
+
+## Bug reporting
+
+If you find the bug in Gorciu Studio (I think this project has a lot of bugs) go to [SECURITY.MD](https://github.com/gorciu-official/studio/blob/main/SECURITY.MD) file and follow the instructions.
+
+## Other ways to help the project
+
+1. Give this project a star and download the release.
+2. Download stable version of Gorciu Studio and search for bugs. If you find the bug follow the instructions in [bug reporting](#bug-reporting) section.
+3. Send informations about this code editor to other people.
