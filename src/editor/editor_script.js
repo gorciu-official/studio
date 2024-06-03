@@ -3,13 +3,26 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 var currentDir = null;
+var nextTabId = 1;
 
 // Opens card
 function openFileTab(filename) {
-    console.log(`Opening file: ${filename}`);
+    var view = document.createElement('div');
+    view.dataset.tabid = nextTabId;
+    view.classList.add('view');
+    view.innerHTML = '<i>Na razie dziala tylko fs api</i>';
+
+    var tab = document.createElement('div');
+    tab.dataset.tabid = nextTabId;
+    tab.classList.add('tab');
+    tab.textContent = filename;
+
+    nextTabId++;
+
+    return switchTab(nextTabId - 1);
 }
 
-function openTab(type, name) {
+function openTab(type, name, content) {
     if (!type || !name) {
         return false;
     }
@@ -17,6 +30,14 @@ function openTab(type, name) {
     if (type == 'file') {
         return openFileTab(name);
     }
+}
+
+// Switchs cards
+function switchTab(tab_id) {
+    document.querySelector('.views .view.current').classList.remove('current');
+    document.querySelector('.views .view[data-tabid='+tab_id+']').classList.add('current');
+    document.querySelector('.tabs .tab.current').classList.remove('current');
+    document.querySelector('.tabs .tab[data-tabid='+tab_id+']').classList.add('current');
 }
 
 // Opens files

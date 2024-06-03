@@ -122,6 +122,22 @@ ul {
     background-color: var(--background-editor);
 }
 
+.editor .views .view {
+    display: none;
+}
+
+.editor .views .view.current {
+    display: block;
+}
+
+.editor .tabs {
+    background-color: var(--background-functionbar);
+}
+
+.editor .tabs .tab.current {
+    background-color: var(--background-editor);
+}
+
 ::-webkit-scrollbar {
     background-color: white;
     width: 1px;
