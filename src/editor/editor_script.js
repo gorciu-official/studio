@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Opens card
-
 function openFileTab(filename) {
 }
 
@@ -18,19 +17,16 @@ function openTab(type, name) {
 }
 
 // Opens files
-function openStructure(files_json, returning) {
+function openStructure(files_json, returning, padding = 0) {
     var elements = [];
-    var elementsNumber = 1;
 
     files_json.forEach(element => {
         if (typeof element === 'object') {
             // This is a folder
-            elementsNumber++;
-            elements[elementsNumber] = openFolder(element);
+            elements.push(openFolder(element, padding + 5));
         } else {
             // This is a file
-            elementsNumber++;
-            elements[elementsNumber] = openFile(element);
+            elements.push(openFile(element, padding));
         }
     });
 
@@ -38,22 +34,23 @@ function openStructure(files_json, returning) {
         return elements;
     } else {
         const filesIndex = document.querySelector('.files-index');
-        filesIndex.setAttribute('style', 'display:none;');
+        filesIndex.style.display = 'none';
         filesIndex.innerHTML = '';
-        document.querySelector('.files-open').removeAttribute('display:none;');
+        document.querySelector('.files-open').style.display = 'none';
         elements.forEach(el => {
             filesIndex.appendChild(el);
         });
+        filesIndex.style.display = '';
     }
 }
 
-function openFolder(element) {
+function openFolder(element, padding) {
     // Creates a folder
     var folder = document.createElement('div');
     folder.classList.add('folder');
 
     // Creates a padding for items
-    folder.style.paddingLeft = '5px';
+    folder.style.paddingLeft = padding + 'px';
 
     // Creates a name for the folder
     var folderName = document.createElement('div');
@@ -62,7 +59,7 @@ function openFolder(element) {
     folder.appendChild(folderName);
 
     // Recursively open items within the folder
-    var inside = openStructure(element.items, true);
+    var inside = openStructure(element.items, true, padding);
 
     // Append items inside the folder
     inside.forEach(item => {
@@ -72,11 +69,12 @@ function openFolder(element) {
     return folder;
 }
 
-function openFile(filename) {
+function openFile(filename, padding) {
     // Creates a file
     var file = document.createElement('div');
     file.classList.add('file');
     file.innerText = filename;
+    file.style.paddingLeft = padding + 'px';
 
     // Add click event to open the file tab
     file.addEventListener('click', () => {
