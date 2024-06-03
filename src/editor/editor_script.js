@@ -37,10 +37,10 @@ function openStructure(files_json, returning) {
     if (returning) {
         return elements;
     } else {
-        document.querySelector('.files-open').setAttribute('style', 'display:none;');
         const filesIndex = document.querySelector('.files-index');
+        filesIndex.setAttribute('style', 'display:none;');
         filesIndex.innerHTML = '';
-        filesIndex.removeAttribute('display:none;');
+        document.querySelector('.files-open').removeAttribute('display:none;');
         elements.forEach(el => {
             filesIndex.appendChild(el);
         });
