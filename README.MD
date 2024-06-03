@@ -9,6 +9,7 @@ This table will help you search for the releases of Gorciu Studio and will help 
 * [Downloading](#downloading)
     * [Stable versions](#stable-versions)
     * [Beta builds](#beta-versions)
+* [Contributing](#contributing)
 
 ## Downloading
 
