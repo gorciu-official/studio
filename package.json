@@ -7,7 +7,6 @@
   "main": "src/run.js",
   "type": "commonjs",
   "scripts": {
-    "prestart": "node ./build/start.js",
     "start": "electron .",
     "preinstall": "node ./build/npm/preinstall.js"
   },
