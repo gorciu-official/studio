@@ -8,7 +8,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "electron .",
-    "preinstall": "node ./build/preinstall.js"
+    "preinstall": "node ./build/npm/preinstall.js"
   },
   "keywords": [
     "gorciu",
