@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Opens card
 function openFileTab(filename) {
+    console.log(`Opening file: ${filename}`);
 }
 
 function openTab(type, name) {
@@ -17,18 +18,18 @@ function openTab(type, name) {
 }
 
 // Opens files
-function openStructure(files_json, returning, padding = 0) {
+async function openStructure(files_json, returning, padding = 0) {
     var elements = [];
 
-    files_json.forEach(element => {
+    for (const element of files_json) {
         if (typeof element === 'object') {
             // This is a folder
-            elements.push(openFolder(element, padding + 5));
+            elements.push(await openFolder(element, padding + 5));
         } else {
             // This is a file
             elements.push(openFile(element, padding));
         }
-    });
+    }
 
     if (returning) {
         return elements;
@@ -44,10 +45,11 @@ function openStructure(files_json, returning, padding = 0) {
     }
 }
 
-function openFolder(element, padding) {
+async function openFolder(element, padding) {
     // Creates a folder
     var folder = document.createElement('div');
     folder.classList.add('folder');
+    folder.style.paddingLeft = padding + 'px';
 
     // Creates a name for the folder
     var folderName = document.createElement('div');
@@ -56,7 +58,7 @@ function openFolder(element, padding) {
     folder.appendChild(folderName);
 
     // Recursively open items within the folder
-    var inside = openStructure(element.items, true, padding);
+    var inside = await openStructure(element.items, true, padding);
 
     // Append items inside the folder
     inside.forEach(item => {
@@ -79,6 +81,31 @@ function openFile(filename, padding) {
     });
 
     return file;
+}
+
+async function getDirectoryStructure(directoryHandle) {
+    const structure = [];
+
+    for await (const [name, handle] of directoryHandle) {
+        if (handle.kind === 'file') {
+            structure.push(name);
+        } else if (handle.kind === 'directory') {
+            const items = await getDirectoryStructure(handle);
+            structure.push({ name, items });
+        }
+    }
+
+    return structure;
+}
+
+async function openFileSystem() {
+    try {
+        const directoryHandle = await window.showDirectoryPicker();
+        const structure = await getDirectoryStructure(directoryHandle);
+        openStructure(structure);
+    } catch (error) {
+        console.error('Error accessing file system:', error);
+    }
 }
 
 function createExampleFileStructure() {
