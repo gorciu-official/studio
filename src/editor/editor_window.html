@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gorciu Studio (loading...)</title>
+</head>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            height: 100vh;
+            background-color: #111111;
+        }
+        body .title-bar {
+            background-color: #111111;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 5px;
+            -webkit-app-region: drag;
+        }
+        body .title-bar .title-first,
+        body .title-bar .title-second {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+        }
+        body .title-bar p {
+            font-size: 14px;
+        }
+        body .title-bar p.close {
+            cursor: pointer;
+            -webkit-app-region: no-drag;
+        }
+        body .content {
+            width: 100vw;
+            height: calc(100vh - 26px - 4px);
+            background-color: white;
+        }
+        body .content iframe {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <div class="title-bar">
+        <div class="title-first">
+            <img src="../../assets/logo.jpg" alt="GS" style="width:16px;">
+            <p class="title">Gorciu Studio (loading)</p>
+        </div>
+        <div class="title-second">
+            <p class="close" onclick="window.close()">X</p>
+        </div>
+    </div>
+    <div class="content">
+        <iframe frameborder="0"></iframe>
+    </div>
+    <script>
+        if (localStorage.getItem('loaded_before')==null) {
+            document.querySelector('iframe').src = './editor_welcome.html';
+        } else {
+            document.querySelector('iframe').src = './editor.html';
+        }
+    </script>
+</body>
+</html>

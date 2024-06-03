@@ -1,0 +1,22 @@
+{
+  "name": "gorciu-studio",
+  "version": "1.0.0",
+  "description": "The Gorciu Studio - new, better code editor",
+  "author": "Gorciu",
+  "license": "SEE LICENSE IN LICENSE.MD",
+  "main": "src/run.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "electron .",
+    "preinstall": "node ./build/preinstall.js"
+  },
+  "keywords": [
+    "gorciu",
+    "studio",
+    "code",
+    "editor"
+  ],
+  "devDependencies": {
+    "electron": "^30.0.9"
+  }
+}

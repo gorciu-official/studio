@@ -1,0 +1,8 @@
+# The ignored files and folders
+
+# Special directories used for set up Gorciu Studio
+.git
+.vscode
+
+# Node.JS modules
+node_modules/
