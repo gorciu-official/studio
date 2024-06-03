@@ -1,8 +1,7 @@
 # The ignored files and folders
 
-# Special directories used for set up Gorciu Studio
+# Special git directory used for set up Gorciu Studio repository
 .git
-.vscode
 
 # Node.JS modules
 node_modules/
