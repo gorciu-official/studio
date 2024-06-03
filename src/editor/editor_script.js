@@ -49,9 +49,6 @@ function openFolder(element, padding) {
     var folder = document.createElement('div');
     folder.classList.add('folder');
 
-    // Creates a padding for items
-    folder.style.paddingLeft = padding + 'px';
-
     // Creates a name for the folder
     var folderName = document.createElement('div');
     folderName.classList.add('folder-name');
