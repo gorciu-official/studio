@@ -3,12 +3,15 @@
     --background-sidebar: #020202;
     --background-functionbar: #0c0c0c;
     --background-editor: #0f0f0f;
+    --tab-background: #1c1c1c;
+    --tab-background-active: #2e2e2e;
+    --tab-border-color: #333;
 }
 
 * {
     margin: 0;
     padding: 0;
-    color: white;
+    color: var(--foreground);
     font-family: Arial, Helvetica, sans-serif;
     user-select: none;
 }
@@ -72,7 +75,7 @@ textarea::placeholder {
 }
 
 .sidebar i {
-    font-size: 35px; 
+    font-size: 35px;
     cursor: pointer;
 }
 
@@ -120,6 +123,8 @@ ul {
 .editor {
     width: calc((100% - 25px - 2px) - 15%);
     background-color: var(--background-editor);
+    display: flex;
+    flex-direction: column;
 }
 
 .editor .views .view {
@@ -131,11 +136,29 @@ ul {
 }
 
 .editor .tabs {
-    background-color: var(--background-functionbar);
+    display: flex;
+    background-color: var(--tab-background);
+    border-bottom: 1px solid var(--tab-border-color);
+}
+
+.editor .tabs .tab {
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: var(--tab-background);
+    border: 1px solid var(--tab-border-color);
+    border-bottom: none;
 }
 
 .editor .tabs .tab.current {
-    background-color: var(--background-editor);
+    background-color: var(--tab-background-active);
+}
+
+.editor .tabs .tab:hover {
+    background-color: var(--tab-background-active);
+}
+
+.editor .tabs .tab:not(.current) {
+    border-bottom: 1px solid var(--tab-border-color);
 }
 
 ::-webkit-scrollbar {
