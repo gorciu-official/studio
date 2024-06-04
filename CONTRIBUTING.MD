@@ -42,4 +42,4 @@ If you find the bug in Gorciu Studio (I think this project has a lot of bugs) go
 
 ### Reporting a security vulnerability
 
-The complete instruction you can find on [SECURITY.MD](https://github.com/gorciu-official/studio/blob/main/SECURITY.MD).
+The complete instruction you can find on [SECURITY.MD](https://github.com/gorciu-official/studio/blob/main/SECURITY.MD) file (for security).
