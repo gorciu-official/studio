@@ -6,7 +6,7 @@ This document contains informations how to contribute to Gorciu Studio or run it
     * [Troobleshooting](#troubleshotting-dependencies-installation)
 * [Running project](#running-the-gorciu-studio)
 * [Bug reporing](#bug-reporting)
-* [Other ways to help the project](#other-ways-to-help-the-project)
+    * [Opening an issue](#opening-a-issue)
 
 ## Installing the Gorciu Studio dependencies
 
@@ -35,8 +35,11 @@ After installing the Gorciu Studio dependencies you can run or compile project. 
 
 If you find the bug in Gorciu Studio (I think this project has a lot of bugs) go to [SECURITY.MD](https://github.com/gorciu-official/studio/blob/main/SECURITY.MD) file and follow the instructions.
 
-## Other ways to help the project
+### Opening a issue
 
-1. Give this project a star and download the release.
-2. Download stable version of Gorciu Studio and search for bugs. If you find the bug follow the instructions in [bug reporting](#bug-reporting) section.
-3. Send informations about this code editor to other people.
+1. Before performing any actions please check for identical issues. If there is identical issue don't submit the same content.
+2. If your issue is original send it via [Github Issues](https://github.com/gorciu-official/studio/issues)
+
+### Reporting a security vulnerability
+
+The complete instruction you can find on [SECURITY.MD](https://github.com/gorciu-official/studio/blob/main/SECURITY.MD).
