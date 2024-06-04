@@ -1,33 +1,42 @@
+const { ipcRenderer } = require('electron');
+const fs = require('fs');
+const path = require('path');
+const { dialog } = require('electron').remote;
+
 document.addEventListener('DOMContentLoaded', () => {
     changeTitle('Welcome');
 });
 
-var currentDir = null;
-var nextTabId = 1;
+let currentDir = null;
+let nextTabId = 1;
 
-async function readFileContents(filePath, id) {
+function readFileContents(filePath, id) {
     if (!filePath || typeof filePath !== 'string') {
         console.error('Invalid file path:', filePath);
         return;
     }
-    
+
     if (!currentDir) {
         console.error('Current directory is not set.');
         return;
     }
-    const fileHandle = await currentDir.getFileHandle(filePath);
-    const file = await fileHandle.getFile();
-    const reader = new FileReader();
-    
-    reader.onload = function(event) {
-        displayFileContent(event.target.result, id);
-    };
-    
-    reader.readAsText(file);
+
+    try {
+        const fullPath = path.join(currentDir, filePath);
+        fs.readFile(fullPath, 'utf8', (err, data) => {
+            if (err) {
+                console.error('Error reading file:', err);
+                return;
+            }
+            displayFileContent(data, id);
+        });
+    } catch (error) {
+        console.error('Error reading file:', error);
+    }
 }
 
 function displayFileContent(content, id) {
-    const currentView = document.querySelector('.view[data-tabid="'+id+'"]');
+    const currentView = document.querySelector(`.view[data-tabid="${id}"]`);
 
     if (!currentView) {
         console.error('View with id ' + id + ' does not exist.');
@@ -37,18 +46,17 @@ function displayFileContent(content, id) {
     const fileContentElement = document.createElement('div');
     fileContentElement.classList.add('file-content');
     fileContentElement.innerText = content;
-    
+
     currentView.innerHTML = '';
-    
     currentView.appendChild(fileContentElement);
 }
 
 function openFileTab(filePath) {
-    var view = document.createElement('div');
+    const view = document.createElement('div');
     view.dataset.tabid = nextTabId;
     view.classList.add('view');
 
-    var tab = document.createElement('div');
+    const tab = document.createElement('div');
     tab.dataset.tabid = nextTabId;
     tab.classList.add('tab');
     tab.textContent = filePath;
@@ -62,26 +70,28 @@ function openFileTab(filePath) {
 
     readFileContents(filePath, nextTabId);
 
+    const currentTabId = nextTabId;
     nextTabId++;
 
     tab.addEventListener('click', () => {
-        switchTab(nextTabId - 1);
+        switchTab(currentTabId);
     });
 
-    return switchTab(nextTabId - 1);
+    return switchTab(currentTabId);
 }
 
 function switchTab(tab_id) {
-    var currentView = document.querySelector('.views .view.current');
+    const currentView = document.querySelector('.views .view.current');
     if (currentView) {
         currentView.classList.remove('current');
     }
-    var currentTab = document.querySelector('.tabs .tab.current');
+    const currentTab = document.querySelector('.tabs .tab.current');
     if (currentTab) {
         currentTab.classList.remove('current');
     }
-    var newView = document.querySelector('.views .view[data-tabid="'+tab_id+'"]');
-    var newTab = document.querySelector('.tabs .tab[data-tabid="'+tab_id+'"]');
+
+    const newView = document.querySelector(`.views .view[data-tabid="${tab_id}"]`);
+    const newTab = document.querySelector(`.tabs .tab[data-tabid="${tab_id}"]`);
     if (newView && newTab) {
         newView.classList.add('current');
         newTab.classList.add('current');
@@ -95,18 +105,18 @@ function openTab(type, path) {
         return false;
     }
 
-    if (type == 'file') {
+    if (type === 'file') {
         return openFileTab(path);
     }
 }
 
-async function openStructure(files_json, returning, padding = 0) {
-    var elements = [];
+function openStructure(files_json, returning, padding = 0) {
+    const elements = [];
 
     for (const element of files_json) {
         if (typeof element === 'object') {
             // This is a folder
-            elements.push(await openFolder(element, padding + 5));
+            elements.push(openFolder(element, padding + 5));
         } else {
             // This is a file
             elements.push(openFile(element, padding));
@@ -127,20 +137,20 @@ async function openStructure(files_json, returning, padding = 0) {
     }
 }
 
-async function openFolder(element, padding) {
+function openFolder(element, padding) {
     // Creates a folder
-    var folder = document.createElement('div');
+    const folder = document.createElement('div');
     folder.classList.add('folder');
     folder.style.paddingLeft = padding + 'px';
 
     // Creates a name for the folder
-    var folderName = document.createElement('div');
+    const folderName = document.createElement('div');
     folderName.classList.add('folder-name');
     folderName.innerText = element.name;
     folder.appendChild(folderName);
 
     // Recursively open items within the folder
-    var inside = await openStructure(element.items, true, padding);
+    const inside = openStructure(element.items, true, padding);
 
     // Append items inside the folder
     inside.forEach(item => {
@@ -152,7 +162,7 @@ async function openFolder(element, padding) {
 
 function openFile(filePath, padding) {
     // Creates a file
-    var file = document.createElement('div');
+    const file = document.createElement('div');
     file.classList.add('file');
     file.innerText = filePath;
     file.style.paddingLeft = padding + 'px';
@@ -165,26 +175,38 @@ function openFile(filePath, padding) {
     return file;
 }
 
-async function getDirectoryStructure(directoryHandle) {
+function getDirectoryStructure(dirPath) {
     const structure = [];
 
-    for await (const [name, handle] of directoryHandle) {
-        if (handle.kind === 'file') {
-            structure.push(name);
-        } else if (handle.kind === 'directory') {
-            const items = await getDirectoryStructure(handle);
-            structure.push({ name, items });
+    const files = fs.readdirSync(dirPath);
+    files.forEach(file => {
+        const filePath = path.join(dirPath, file);
+        const stat = fs.statSync(filePath);
+
+        if (stat.isDirectory()) {
+            const items = getDirectoryStructure(filePath);
+            structure.push({ name: file, items });
+        } else {
+            structure.push(file);
         }
-    }
+    });
 
     return structure;
 }
 
 async function openFileSystem() {
     try {
-        const directoryHandle = await window.showDirectoryPicker();
-        currentDir = directoryHandle;
-        const structure = await getDirectoryStructure(directoryHandle);
+        const result = await dialog.showOpenDialog({
+            properties: ['openDirectory']
+        });
+
+        if (result.canceled || result.filePaths.length === 0) {
+            console.error('No directory selected.');
+            return;
+        }
+
+        currentDir = result.filePaths[0];
+        const structure = getDirectoryStructure(currentDir);
         openStructure(structure);
     } catch (error) {
         console.error('Error accessing file system:', error);
@@ -199,7 +221,7 @@ function unopenFS() {
     document.querySelector('.files-open').style.display = 'none';
     document.querySelector('.files-open').style.display = 'block';
 
-    var edt = document.querySelector('.editor');
+    const edt = document.querySelector('.editor');
     edt.innerHTML = '<div class="tabs"></div><div class="views"></div>';
 }
 
@@ -208,8 +230,8 @@ function createExampleFileStructure() {
     return [
         "file.txt", // This is a file
         { // This is a folder
-            "name": "src", // The folder's name
-            "items": [ // The folder's items
+            name: "src", // The folder's name
+            items: [ // The folder's items
                 "file.txt" // This is a file
                 // Inside a folder there can be a folder
             ]
