@@ -38,11 +38,9 @@
         </form>
     </div>
     <script>
-        const wt = window.top;
-
         function changeTitle(title) {
-            wt.document.querySelector('title').textContent = title + ' - Gorciu Studio';
-            wt.document.querySelector('.title').textContent = title + ' - Gorciu Studio';
+            window.top.document.querySelector('title').textContent = title + ' - Gorciu Studio';
+            window.top.document.querySelector('.title').textContent = title + ' - Gorciu Studio';
         }
 
         function finishConfiguration() {
@@ -55,7 +53,7 @@
             document.querySelector('form').addEventListener('submit', async function(e) {
                 await e.preventDefault();
                 await finishConfiguration();
-                await wt.location.reload();
+                await window.top.location.reload();
                 return false;
             });
         })

@@ -2,11 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const { dialog } = require('electron').remote;
 
-const wt = window.top;
-
 function changeTitle(title) {
-    wt.document.querySelector('title').textContent = title + ' - Gorciu Studio';
-    wt.document.querySelector('.title').textContent = title + ' - Gorciu Studio';
+    window.top.document.querySelector('title').textContent = title + ' - Gorciu Studio';
+    window.top.document.querySelector('.title').textContent = title + ' - Gorciu Studio';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
