@@ -24,4 +24,4 @@ I want to provide everyone with access to the code of the best programs, except 
 
 ## Contributing is welcome!
 
-Go to [CONTRIBUTING.MD](https://github.com/gorciu-official/studio/blob/main/CONTRIBUTING.MD) and learn more.
+Go to [CONTRIBUTING.MD](https://github.com/gorciu-official/studio/blob/main/CONTRIBUTING.MD) and learn more now.
