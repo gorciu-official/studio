@@ -9,6 +9,11 @@
 
 const {app, BrowserWindow, ipcMain, dialog} = require('electron');
 
+ipcMain.handle('show-open-dialog', async (event, options) => {
+    const result = await dialog.showOpenDialog(options);
+    return result;
+});
+
 /**
  * Creates a new electron window.
 */

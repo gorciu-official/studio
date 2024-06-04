@@ -18,11 +18,11 @@ contextBridge.exposeInMainWorld('electron', {
         readFile: (filePath, encoding, callback) => {
             fs.readFile(filePath, encoding, callback);
         },
-        readdir: (dirPath, callback) => {
-            fs.readdir(dirPath, callback);
+        readdirSync: (dirPath) => {
+            return fs.readdirSync(dirPath);
         },
-        stat: (filePath, callback) => {
-            fs.stat(filePath, callback);
+        statSync: (filePath) => {
+            return fs.statSync(filePath);
         }
     },
     path: {
