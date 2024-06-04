@@ -38,6 +38,17 @@
         </form>
     </div>
     <script>
+        const wt = window.top;
+
+        function changeTitle(title) {
+            wt.document.querySelector('title').textContent = title + ' - Gorciu Studio';
+            wt.document.querySelector('.title').textContent = title + ' - Gorciu Studio';
+        }
+
+        function finishConfiguration() {
+            window.top.localStorage.setItem('loaded_before', true);
+        }
+        
         document.addEventListener('DOMContentLoaded', () => {
             changeTitle('Welcome in Gorciu Studio');
 
