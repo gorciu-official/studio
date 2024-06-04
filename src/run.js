@@ -7,7 +7,7 @@
  * Please contribute with looking at license
 **/
 
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, ipcMain, dialog} = require('electron');
 
 /**
  * Creates a new electron window.

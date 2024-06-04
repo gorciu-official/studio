@@ -7,15 +7,16 @@
  * Please contribute with looking at license
 **/
 
+// Change the title of the window
 function changeTitle(title) {
     window.top.document.querySelector('title').textContent = title + ' - Gorciu Studio';
     window.top.document.querySelector('.title').textContent = title + ' - Gorciu Studio';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(()=>{
+    setTimeout(() => {
         changeTitle('Welcome');
-    }, 500)
+    }, 500);
 });
 
 let currentDir = null;
@@ -33,8 +34,8 @@ function readFileContents(filePath, id) {
     }
 
     try {
-        const fullPath = path.join(currentDir, filePath);
-        fs.readFile(fullPath, 'utf8', (err, data) => {
+        const fullPath = window.electron.path.join(currentDir, filePath);
+        window.electron.fs.readFile(fullPath, 'utf8', (err, data) => {
             if (err) {
                 console.error('Error reading file:', err);
                 return;
@@ -189,10 +190,10 @@ function openFile(filePath, padding) {
 function getDirectoryStructure(dirPath) {
     const structure = [];
 
-    const files = fs.readdirSync(dirPath);
+    const files = window.electron.fs.readdirSync(dirPath);
     files.forEach(file => {
-        const filePath = path.join(dirPath, file);
-        const stat = fs.statSync(filePath);
+        const filePath = window.electron.path.join(dirPath, file);
+        const stat = window.electron.fs.statSync(filePath);
 
         if (stat.isDirectory()) {
             const items = getDirectoryStructure(filePath);
@@ -207,7 +208,7 @@ function getDirectoryStructure(dirPath) {
 
 async function openFileSystem() {
     try {
-        const result = await dialog.showOpenDialog({
+        const result = await window.electron.dialog.showOpenDialog({
             properties: ['openDirectory']
         });
 
