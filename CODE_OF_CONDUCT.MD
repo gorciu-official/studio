@@ -21,3 +21,7 @@ I want to provide everyone with access to the code of the best programs, except 
 * Public or private harassment
 * Publishing others' private information, such as a physical or email address, without their explicit permission
 * Other conduct which could reasonably be considered inappropriate in a professional setting
+
+## Contributing is welcome!
+
+Go to [CONTRIBUTING.MD](https://github.com/gorciu-official/studio/blob/main/CONTRIBUTING.MD) and learn more.
