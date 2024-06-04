@@ -28,7 +28,6 @@ function createNewWindow(filename) {
         webPreferences: {
             nodeIntegration: true,
             //devTools: false,
-            preload: "./build/preload.js"
         }
     });
 

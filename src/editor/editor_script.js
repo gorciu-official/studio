@@ -7,6 +7,32 @@
  * Please contribute with looking at license
 **/
 
+// Define constants
+const { contextBridge, ipcRenderer, dialog } = require('electron');
+const fs = require('fs');
+const path = require('path');
+
+// Create context bridge
+contextBridge.exposeInMainWorld('electron', {
+    fs: {
+        readFile: (filePath, encoding, callback) => {
+            fs.readFile(filePath, encoding, callback);
+        },
+        readdirSync: (dirPath) => {
+            return fs.readdirSync(dirPath);
+        },
+        statSync: (filePath) => {
+            return fs.statSync(filePath);
+        }
+    },
+    path: {
+        join: (...args) => path.join(...args)
+    },
+    dialog: {
+        showOpenDialog: (options) => ipcRenderer.invoke('show-open-dialog', options)
+    }
+});
+
 // Change the title of the window
 function changeTitle(title) {
     window.top.document.querySelector('title').textContent = title + ' - Gorciu Studio';
@@ -209,24 +235,19 @@ function getDirectoryStructure(dirPath) {
 async function openFileSystem() {
     console.log("openFileSystem called");
 
-    try {
-        const result = await window.electron.dialog.showOpenDialog({
-            properties: ['openDirectory']
-        });
+    const result = await dialog.showOpenDialog({
+        properties: ['openDirectory']
+    });
 
-        console.log("Dialog result:", result); 
-
-        if (result.canceled || result.filePaths.length === 0) {
-            console.error('No directory selected.');
-            return;
-        }
-
-        currentDir = result.filePaths[0];
-        const structure = getDirectoryStructure(currentDir);
-        openStructure(structure);
-    } catch (error) {
-        console.error('Error accessing file system:', error);
+    console.log("Dialog result:", result); 
+    if (result.canceled || result.filePaths.length === 0) {
+        console.error('No directory selected.');
+        return;
     }
+
+    currentDir = result.filePaths[0];
+    const structure = getDirectoryStructure(currentDir);
+    openStructure(structure);
 }
 
 function unopenFS() {

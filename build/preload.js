@@ -7,28 +7,5 @@
  * Please contribute with looking at license
 **/
 
-// Define constants
-const { contextBridge, ipcRenderer } = require('electron');
-const fs = require('fs');
-const path = require('path');
-
-// Create context bridge
-contextBridge.exposeInMainWorld('electron', {
-    fs: {
-        readFile: (filePath, encoding, callback) => {
-            fs.readFile(filePath, encoding, callback);
-        },
-        readdirSync: (dirPath) => {
-            return fs.readdirSync(dirPath);
-        },
-        statSync: (filePath) => {
-            return fs.statSync(filePath);
-        }
-    },
-    path: {
-        join: (...args) => path.join(...args)
-    },
-    dialog: {
-        showOpenDialog: (options) => ipcRenderer.invoke('show-open-dialog', options)
-    }
-});
+// Information for the developers with God mode (devtools) if the script is loaded
+console.log("Preload script is loaded");
