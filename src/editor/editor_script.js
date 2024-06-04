@@ -1,7 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-const { dialog } = require('electron').remote;
-
 function changeTitle(title) {
     window.top.document.querySelector('title').textContent = title + ' - Gorciu Studio';
     window.top.document.querySelector('.title').textContent = title + ' - Gorciu Studio';
