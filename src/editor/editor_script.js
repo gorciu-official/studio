@@ -207,10 +207,14 @@ function getDirectoryStructure(dirPath) {
 }
 
 async function openFileSystem() {
+    console.log("openFileSystem called");
+
     try {
         const result = await window.electron.dialog.showOpenDialog({
             properties: ['openDirectory']
         });
+
+        console.log("Dialog result:", result); 
 
         if (result.canceled || result.filePaths.length === 0) {
             console.error('No directory selected.');
