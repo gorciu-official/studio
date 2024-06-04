@@ -4,7 +4,9 @@ function changeTitle(title) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    changeTitle('Welcome');
+    setTimeout(()=>{
+        changeTitle('Welcome');
+    }, 500)
 });
 
 let currentDir = null;
