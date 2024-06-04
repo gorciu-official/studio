@@ -1,3 +1,12 @@
+/**
+ * ==================================================================
+ *                        Gorciu Studio
+ *                       (C) 2024 Gorciu
+ * ==================================================================
+ * 
+ * Please contribute with looking at license
+**/
+
 function changeTitle(title) {
     window.top.document.querySelector('title').textContent = title + ' - Gorciu Studio';
     window.top.document.querySelector('.title').textContent = title + ' - Gorciu Studio';

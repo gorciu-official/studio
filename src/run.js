@@ -3,6 +3,8 @@
  *                        Gorciu Studio
  *                       (C) 2024 Gorciu
  * ==================================================================
+ * 
+ * Please contribute with looking at license
 **/
 
 const {app, BrowserWindow} = require('electron');
