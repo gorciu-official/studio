@@ -1,7 +1,13 @@
+:root {
+    --foreground: white;
+    --editor-background: #201f1f;
+    --functionbar-background: #0f0f0f;
+}
+
 * {
     margin: 0;
     padding: 0;
-    color: white;
+    color: var(--foreground);
 }
 
 body {
@@ -47,4 +53,12 @@ body {
 
 .content-inner {
     position: relative;
+}
+
+.functionbar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    background-color: var(--functionbar-background);
 }
