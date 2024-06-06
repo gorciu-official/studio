@@ -30,7 +30,6 @@ function createNewWindow(filename) {
     });
 
     electronWindow.loadFile(filename);
-    electronWindow.maximize();
 
     return electronWindow;
 }
@@ -39,7 +38,7 @@ function createNewWindow(filename) {
  * Runs a new Gorciu Studio instance
 */
 function runGorciuStudio() {
-    return createNewWindow('./src/editor/editor_window.html');
+    return createNewWindow('./src/editor/editor.html');
 }
 
 /**
