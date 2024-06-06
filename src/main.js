@@ -17,9 +17,9 @@ const {app, BrowserWindow} = require('electron');
 */
 function createNewWindow(filename) {
     var electronWindow = new BrowserWindow({
-        width: 600,
+        width: 1000,
         height: 800,
-        minWidth: 600,
+        minWidth: 1000,
         minHeight: 800,
         icon: './assets/logo.jpg',
         frame: false,
