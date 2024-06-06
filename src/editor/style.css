@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.title-bar {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #0e0d0d;
+}
+
+.title-bar .first,
+.title-bar .second {
+    display: flex;
+    gap: 10px;
+}
+
+.title-bar .first img {
+    width: 16px;
+}
