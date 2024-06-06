@@ -1,0 +1,23 @@
+{
+  "name": "gorciu-studio",
+  "version": "1.0.0",
+  "description": "Gorciu Studio - the new, interesting code editor with dark theme developed by Gorciu!",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "gorciu",
+    "studio",
+    "code",
+    "editor",
+    "code-editor",
+    "gs",
+    "gorciu-studio"
+  ],
+  "author": "Gorciu",
+  "license": "SEE LICENSE IN LICENSE.MD",
+  "devDependencies": {
+    "electron": "^30.1.0"
+  }
+}
