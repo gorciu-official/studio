@@ -7,6 +7,7 @@ This document contains informations how to contribute to Gorciu Studio or run it
 * [Running project](#running-the-gorciu-studio)
 * [Bug reporing](#bug-reporting)
     * [Opening an issue](#opening-a-issue)
+    * [Reporting a security vulnerabilty](#reporting-a-security-vulnerability)
 
 ## Installing the Gorciu Studio dependencies
 
@@ -21,9 +22,6 @@ If you see the errors use this section to delete them.
 1. Node.JS version error
     - The error message: `Error detected: unsupported version of Node.JS. Use latest version of Node.JS from https://nodejs.org/ website. (error code: 0x0001)`
     - Troobleshoting: The Gorciu Studio preinstall script detected that you have unsupported version of Node.JS (in this project the required version is 21.0.0). Install new version of Node.JS from [Node.JS's official website](https://nodejs.org/).
-2. Installation stopped error
-    - The error message: `INSTALLATION STOPPED: A problem / problems has been detected and the required packages has been prevented from installing.`
-    - Troobleshoting: Fix the previous displayed errors. This error is displayed only if minimum one of previous problems exists.
 
 ## Running the Gorciu Studio
 

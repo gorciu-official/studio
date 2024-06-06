@@ -32,7 +32,7 @@ This section will help you with downloading the software and running it in a nor
 
 #### Nightly builds
 
-The nightly builds are generally the builds builded from the source code. I make many changes in code before I decide to make an release so download the source code and see the [contributing](#contributing) section.
+The nightly builds are generally the builds builded from the actual source code. I make many changes in code before I decide to make an release so download the source code and see the [contributing](#contributing) section.
 
 ## Contributing
 
