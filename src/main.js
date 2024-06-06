@@ -12,32 +12,41 @@
 // Get required items from Electron library
 const {app, BrowserWindow} = require('electron');
 
-// Create a function to create a window
-function createWindow() {
-    // Create a browser window instance
-    var bw = new BrowserWindow({
-        width: 1000,
-        height: 600,
+/**
+ * Creates a new electron window.
+*/
+function createNewWindow(filename) {
+    var electronWindow = new BrowserWindow({
+        width: 600,
+        height: 800,
+        minWidth: 600,
+        minHeight: 800,
+        icon: './assets/logo.jpg',
         frame: false,
         webPreferences: {
+            nodeIntegration: true,
             devTools: false,
-            nodeIntegration: true
         }
     });
 
-    bw.loadFile('./src/editor/editor.html');
+    electronWindow.loadFile(filename);
+    electronWindow.maximize();
 
-    // Returns instance
-    return bw;
+    return electronWindow;
 }
 
-// The app is ready to display window
-app.whenReady(() => {
-    // Create window
-    createWindow();
+/**
+ * Runs a new Gorciu Studio instance
+*/
+function runGorciuStudio() {
+    return createNewWindow('./src/editor/editor_window.html');
+}
 
-    // Close app when all windows were closed
-    app.on('window-all-closed', () => {
-        app.quit();
-    })
+/**
+ * Finnally run a Gorciu Studio
+*/
+app.whenReady().then(runGorciuStudio);
+
+app.on('window-all-closed', () => {
+    app.quit();
 })
