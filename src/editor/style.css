@@ -19,7 +19,8 @@ body {
     justify-content: space-between;
     background-color: #0e0d0d;
     font-size: 14px;
-    width: 100%;
+    width: calc(100% - 10px);
+    -webkit-app-region: drag;
 }
 
 .title-bar .first,
@@ -30,6 +31,10 @@ body {
 
 .title-bar .first img {
     width: 16px;
+}
+
+.title-bar i {
+    -webkit-app-region: no-drag;
 }
 
 .content {
