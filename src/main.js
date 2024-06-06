@@ -25,7 +25,7 @@ function createNewWindow(filename) {
         frame: false,
         webPreferences: {
             nodeIntegration: true,
-            devTools: false,
+            //devTools: false,
         }
     });
 

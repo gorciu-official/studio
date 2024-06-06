@@ -49,10 +49,12 @@ body {
     top: 26px;
     left: 0;
     height: calc(100vh - 26px);
+    width: 100%;
 }
 
 .content-inner {
     position: relative;
+    width: 100%;
 }
 
 .functionbar {
