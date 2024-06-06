@@ -23,3 +23,9 @@ function changeTitle(newTitle) {
     get('.title-bar .title').textContent = newTitle;
     get('title').textContent = newTitle;
 }
+
+// The resources has been loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Change title to `welcome`
+    changeTitle('Welcome');
+})
