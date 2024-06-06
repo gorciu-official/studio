@@ -4,6 +4,11 @@
     color: white;
 }
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+}
+
 .title-bar {
     position: fixed;
     top: 0;
@@ -12,6 +17,7 @@
     display: flex;
     justify-content: space-between;
     background-color: #0e0d0d;
+    font-size: 14px;
 }
 
 .title-bar .first,
@@ -22,4 +28,15 @@
 
 .title-bar .first img {
     width: 16px;
+}
+
+.content {
+    position: fixed;
+    top: 26px;
+    left: 0;
+    height: calc(100vh - 26px);
+}
+
+.content-inner {
+    position: relative;
 }
