@@ -74,4 +74,5 @@ body {
     padding: 5px;
     height: 100vh;
     width: calc(100% - 360px - 10px);
+    background-color: var(--editor-background);
 }
