@@ -2,12 +2,21 @@
 
 This document contains informations how to contribute to Gorciu Studio or run it from its code. Use the table of contents below to navigate this document.
 
+* [Thank you to your interest in contributing Gorciu Studio](#thank-you-to-your-interest-in-contributing-gorciu-studio)
 * [Installing Node.JS packages](#installing-the-gorciu-studio-dependencies)
     * [Troobleshooting](#troubleshotting-dependencies-installation)
 * [Running project](#running-the-gorciu-studio)
 * [Bug reporing](#bug-reporting)
     * [Opening an issue](#opening-a-issue)
     * [Reporting a security vulnerabilty](#reporting-a-security-vulnerability)
+
+## Thank you to your interest in contributing Gorciu Studio
+
+Thank you to your interest in contributing Gorciu Studio! If you want to help this project in other ways, there's a list:
+
+- ⭐ Give me a star
+- 👤 Share this project to your friends
+- ⛓ Find bugs and report them following the [bug reporing](#bug-reporting) section
 
 ## Installing the Gorciu Studio dependencies
 
