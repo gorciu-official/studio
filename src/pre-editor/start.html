@@ -12,43 +12,76 @@
             margin: 0;
             padding: 0;
             color: white;
+            user-select: auto;
         }
         body {
-            background-color: #201f1f;
+            background-color: #0f0f0f;
+            padding: 10px;
         }
         .title-bar {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
+            -webkit-app-region: drag;
+            width: calc(100vw - 20px);
+            height: 25px;
         }
-        .title-bar i {
+        .title-bar .close {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 25px;
             height: 25px;
             font-size: 16px;
+            -webkit-app-region: no-drag;
         }
-        .title-bar i:hover {
+        .title-bar .close:hover {
             background-color: red;
         }
         .projects-bar {
             position: fixed;
-            top: 25px;
-            left: 0px;
-            width: 100vw;
-            max-height: calc(100vh - 25px);
+            top: 35px;
+            left: 10px;
+            width: calc(100vw - 20px);
+            max-height: calc(100vh - 20px - 25px);
             overflow: auto;
+        }
+        .projects-scroll {
+            height: 500px;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .project {
+            background-color: #201f1f;
+            padding: 5px;
+            word-wrap: break-word;
         }
     </style>
     <div class="title-bar">
         <p class="title">Wybierz projekt - Gorciu Studio</p>
-        <i class="fa-solid fa-x"></i>
+        <div class="close" onclick="window.close();">
+            <i class="fa-solid fa-x"></i>
+        </div>
     </div>
     <div class="projects-bar">
-        <a href="javascript:startEditor('',true);">Otwórz edytor bez projektu.</a>
+        <h2>Utwórz projekt</h2>
+        <div class="projects-scroll">
+            <div class="project">
+                <h3>Podstawowy projekt</h3>
+                <p>Utwórz podstawowy projekt i skonfiguruj jego sposoby kompilacji oraz uruchamiania. Ten typ projektu może być użyteczny przy różnych językach programowania.</p>
+            </div>
+            <div class="project">
+                <h3>Okrojony projekt</h3>
+                <p>Utwórz projekt, który nie ma opcji uruchamiania ani kompilacji. Możesz tego użyć do szybkiego kodu, choć nie ma to sensu.</p>
+            </div>
+        </div>
     </div>
     <script>
         function startEditor(path, isCreation) {
-            window.open('../editor.html?project=' + encodeURIComponent(path) + '&created=' + isCreation)
+            window.electronAPI.runEditor('path/to/file', true);
             window.close();
         }
     </script>

@@ -10,7 +10,11 @@
 */
 
 // Get required items from Electron library
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+
+// Let the pre-editor variable
+let preEditor = null;
 
 /**
  * Creates a new electron window.
@@ -21,11 +25,12 @@ function createNewWindow(filename) {
         height: 800,
         minWidth: 1000,
         minHeight: 800,
-        icon: './assets/logo.jpg',
+        icon: 'assets/logo.jpg',
         frame: false,
         webPreferences: {
             nodeIntegration: true,
-            devTools: false,
+            preload: path.join(__dirname, 'preload.js'), 
+            //devTools: false,
         }
     });
 
@@ -38,14 +43,31 @@ function createNewWindow(filename) {
  * Runs a new Gorciu Studio instance
 */
 function runGorciuStudio() {
-    return createNewWindow('./src/pre-editor/start.html');
+    preEditor = true;
+    return createNewWindow(path.join(__dirname, 'pre-editor/start.html'));
 }
 
 /**
- * Finnally run a Gorciu Studio
+ * Runs a new Gorciu Studio editor instance
 */
+function runEditor(filePath, isOpenedFirst) {
+    preEditor = false;
+    const url = 'src/editor/editor.html' + '?project=' + encodeURIComponent(filePath) + '&created=' + isOpenedFirst;
+    return createNewWindow(url);
+}
+
+// Handle IPC event to run editor
+ipcMain.on('run-editor', (event, filePath, isOpenedFirst) => {
+    runEditor(filePath, isOpenedFirst);
+});
+
+// Run a Gorciu Studio finnally
 app.whenReady().then(runGorciuStudio);
 
 app.on('window-all-closed', () => {
-    app.quit();
-})
+    if (preEditor == true) {
+        app.quit();
+    } else {
+        return runGorciuStudio();
+    }
+});
