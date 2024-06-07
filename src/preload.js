@@ -12,5 +12,6 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    runEditor: (filePath, isOpenedFirst) => ipcRenderer.send('run-editor', filePath, isOpenedFirst)
+    runEditor: (filePath, isOpenedFirst) => ipcRenderer.send('run-editor', filePath, isOpenedFirst),
+    createEditor: (type, name) => ipcRenderer.send('create-project', type, name)
 });

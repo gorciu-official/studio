@@ -12,6 +12,8 @@
 // Get required items from Electron library
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const os = require('os');
+const fs = require('fs');
 
 // Let the pre-editor variable
 let preEditor = null;
@@ -30,7 +32,7 @@ function createNewWindow(filename) {
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js'), 
-            //devTools: false,
+            devTools: false,
         }
     });
 
@@ -56,9 +58,42 @@ function runEditor(filePath, isOpenedFirst) {
     return createNewWindow(url);
 }
 
+/**
+ * Validates the type
+*/
+function validateType(type) {
+    var s = false;
+    [
+        "default-normal",
+        "default-basic"
+    ].forEach((element) => {
+        if (type == element) {
+            s = true;
+        }
+    })
+    return s;
+}
+
+/**
+ * Creates a new project
+*/
+function createProject(type, name) {
+    var dir = path.join(os.homedir(), 'gs/repos', name);
+    if (fs.existsSync(dir)) {
+        return runGorciuStudio();
+    }
+
+    if (validateType(type))
+
+    return runEditor(dir, true);
+}
+
 // Handle IPC event to run editor
 ipcMain.on('run-editor', (event, filePath, isOpenedFirst) => {
     runEditor(filePath, isOpenedFirst);
+});
+ipcMain.on('create-project', (event, type, name) => {
+    createProject(type, name);
 });
 
 // Run a Gorciu Studio finnally
