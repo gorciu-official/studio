@@ -83,7 +83,9 @@ function createProject(type, name) {
         return runGorciuStudio();
     }
 
-    if (validateType(type))
+    if (!validateType(type)) {
+        return runGorciuStudio();
+    }
 
     return runEditor(dir, true);
 }
