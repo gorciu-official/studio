@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
+    <title>Wybierz projekt - Gorciu Studio</title>
+</head>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        body {
+            background-color: #201f1f;
+        }
+        .title-bar {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .title-bar i {
+            width: 25px;
+            height: 25px;
+            font-size: 16px;
+        }
+        .title-bar i:hover {
+            background-color: red;
+        }
+        .projects-bar {
+            position: fixed;
+            top: 25px;
+            left: 0px;
+            width: 100vw;
+            max-height: calc(100vh - 25px);
+            overflow: auto;
+        }
+    </style>
+    <div class="title-bar">
+        <p class="title">Wybierz projekt - Gorciu Studio</p>
+        <i class="fa-solid fa-x"></i>
+    </div>
+    <div class="projects-bar">
+        <a href="javascript:startEditor('',true);">Otwórz edytor bez projektu.</a>
+    </div>
+    <script>
+        function startEditor(path, isCreation) {
+            window.open('../editor.html?project=' + encodeURIComponent(path) + '&created=' + isCreation)
+            window.close();
+        }
+    </script>
+</body>
+</html>

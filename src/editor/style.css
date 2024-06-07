@@ -17,6 +17,10 @@ body {
     background-color: #050505;
 }
 
+ul {
+    margin-left: 20px;
+}
+
 .title-bar {
     position: fixed;
     top: 0;

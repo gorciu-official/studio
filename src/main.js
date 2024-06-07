@@ -38,7 +38,7 @@ function createNewWindow(filename) {
  * Runs a new Gorciu Studio instance
 */
 function runGorciuStudio() {
-    return createNewWindow('./src/editor/editor.html');
+    return createNewWindow('./src/pre-editor/start.html');
 }
 
 /**
