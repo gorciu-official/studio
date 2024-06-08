@@ -7,7 +7,7 @@
  * Read before doing anything:  README.MD
  * Contributing instructions:   CONTRIBUTING.MD
  * License:                     LICENSE.MD
-*/
+ */
 
 // Get required items from Electron library
 const { app, BrowserWindow, ipcMain } = require('electron');
@@ -16,15 +16,27 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
+const url = require('url');
 
 // Let the pre-editor variable
 let preEditor = null;
 
 /**
  * Creates a new electron window.
-*/
-function createNewWindow(filename) {
-    var electronWindow = new BrowserWindow({
+ * @param {string} filename   The file path to load.
+ * @param {string} [search]   The optional URL search parameters.
+ */
+function createNewWindow(filename, search) {
+    // Format the URL with optional search parameters
+    filename = url.format({
+        protocol: 'file:',
+        pathname: filename,
+        slashes: true,
+        search: search ? `?${search}` : ''
+    });
+
+    // Create the browser window
+    const electronWindow = new BrowserWindow({
         width: 1000,
         height: 800,
         minWidth: 1000,
@@ -33,80 +45,94 @@ function createNewWindow(filename) {
         frame: false,
         webPreferences: {
             nodeIntegration: true,
-            preload: path.join(__dirname, 'preload.js'), 
+            preload: path.join(__dirname, 'preload.js'),
             devTools: false,
         }
     });
 
-    electronWindow.loadFile(filename);
+    // Load the URL into the window
+    electronWindow.loadURL(filename);
 
     return electronWindow;
 }
 
 /**
- * Runs a new Gorciu Studio instance
-*/
+ * Runs a new Gorciu Studio instance.
+ */
 function runGorciuStudio() {
     preEditor = true;
-    return createNewWindow(path.join(__dirname, 'pre-editor/start.html'));
+    return createNewWindow('src/pre-editor/start.html');
 }
 
 /**
- * Runs a new Gorciu Studio editor instance
-*/
+ * Runs a new Gorciu Studio editor instance.
+ * @param {string} filePath         The file path of the project.
+ * @param {boolean} isOpenedFirst   Flag indicating if the project is opened for the first time.
+ */
 function runEditor(filePath, isOpenedFirst) {
     preEditor = false;
-    const url = 'src/editor/editor.html' + '?project=' + encodeURIComponent(filePath) + '&created=' + isOpenedFirst;
-    return createNewWindow(url);
+    const searchParams = `project=${encodeURIComponent(filePath)}&created=${isOpenedFirst}`;
+    return createNewWindow('src/editor/editor.html', searchParams);
 }
 
 /**
- * Validates the type
-*/
+ * Validates the project type.
+ * @param {string} type The type of the project.
+ * @returns {boolean}   True if the type is valid, false otherwise.
+ */
 function validateType(type) {
-    var s = false;
-    [
-        "default-normal",
-        "default-basic"
-    ].forEach((element) => {
-        if (type == element) {
-            s = true;
-        }
-    })
-    return s;
+    return ["default-normal", "default-basic"].includes(type);
 }
 
 /**
- * Creates a new project
-*/
+ * Creates a new project.
+ * @param {string} type        The type of the project.
+ * @param {string} name        The name of the project.
+ * @returns {BrowserWindow}    The window instance running the new project.
+ */
 function createProject(type, name) {
-    var dir = path.join(os.homedir(), 'gs/repos', name);
+    const dir = path.join(os.homedir(), 'gs/repos', name);
+    if (name == '') {
+        return runGorciuStudio(); // Project cannot be blank
+    }
+
     if (fs.existsSync(dir)) {
-        return runGorciuStudio();
+        return runGorciuStudio(); // Project already exists, return to pre-editor
     }
 
     if (!validateType(type)) {
-        return runGorciuStudio();
+        return runGorciuStudio(); // Invalid type, return to pre-editor
     }
 
-    return runEditor(dir, true);
+    fs.mkdirSync(dir, { recursive: true }); // Create the project directory
+    return runEditor(dir, true); // Open the new project in the editor
 }
 
 // Handle IPC event to run editor
 ipcMain.on('run-editor', (event, filePath, isOpenedFirst) => {
     runEditor(filePath, isOpenedFirst);
 });
+
+// Handle IPC event to create a new project
 ipcMain.on('create-project', (event, type, name) => {
     createProject(type, name);
 });
 
-// Run a Gorciu Studio finnally
+// Run Gorciu Studio when the app is ready
 app.whenReady().then(runGorciuStudio);
 
+// Handle all windows closed event
 app.on('window-all-closed', () => {
-    if (preEditor == true) {
-        app.quit();
+    if (preEditor) {
+        app.quit(); // Quit the app if in pre-editor mode
     } else {
-        return runGorciuStudio();
+        runGorciuStudio(); // Otherwise, return to pre-editor
+    }
+});
+
+// Handle app activation (macOS specific behavior)
+app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+        runGorciuStudio();
     }
 });
