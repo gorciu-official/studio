@@ -11,6 +11,8 @@
 
 // Get required items from Electron library
 const { app, BrowserWindow, ipcMain } = require('electron');
+
+// Get required items from normal libraries
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
