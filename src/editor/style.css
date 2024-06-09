@@ -88,3 +88,8 @@ ul {
     width: calc(100% - 360px - 10px);
     background-color: var(--editor-background);
 }
+
+.functionbar,
+.editor {
+    overflow: auto;
+}
