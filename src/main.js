@@ -91,21 +91,24 @@ function validateType(type) {
  * @returns {BrowserWindow}    The window instance running the new project.
  */
 function createProject(type, name) {
+    /**
+     * To-DO: Create error messages in Gorciu Studio pre-editor
+    */
+
     const dir = path.join(os.homedir(), 'gs/repos', name);
+
     if (name == '') {
         return runGorciuStudio(); // Project cannot be blank
     }
-
     if (fs.existsSync(dir)) {
         return runGorciuStudio(); // Project already exists, return to pre-editor
     }
-
     if (!validateType(type)) {
         return runGorciuStudio(); // Invalid type, return to pre-editor
     }
 
-    fs.mkdirSync(dir, { recursive: true }); // Create the project directory
-    return runEditor(dir, true); // Open the new project in the editor
+    fs.mkdirSync(dir, { recursive: true });
+    return runEditor(dir, true);
 }
 
 // Handle IPC event to run editor
