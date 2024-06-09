@@ -9,20 +9,33 @@
  * License:                     LICENSE.MD
 */
 
+/**
+ * Starts an editor
+ * 
+ * @param {String} path 
+*/
 function startEditor(path) {
     window.electronAPI.runEditor(path, false);
     window.close();
 }
 
+/**
+ * Creates an editor
+ * 
+ * @param {String} type 
+*/
 function createEditor(type) {
     var name = document.querySelector('.pn').value;
     if (name == '') {
         name = 'project';
     }
-    window.electronAPI.createEditor(type, name);
+    window.electronAPI.createProject(type, name);
     window.close();
 }
 
+/**
+ * A function for getting projects via Electron API
+*/
 function getProjects() {
     window.electronAPI.getProjects((projects) => {
         var isProject = false;
@@ -51,4 +64,10 @@ function getProjects() {
     })
 }
 
+// Create a getProjects() callback after window spawn
 document.addEventListener('DOMContentLoaded', getProjects)
+
+// Make these functions available via HTML structure
+window.startEditor = startEditor;
+window.getProjects = getProjects;
+window.createEditor = createEditor;
