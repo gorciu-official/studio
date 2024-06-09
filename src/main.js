@@ -7,7 +7,7 @@
  * Read before doing anything:  README.MD
  * Contributing instructions:   CONTRIBUTING.MD
  * License:                     LICENSE.MD
- */
+*/
 
 // Get required items from Electron library
 const { app, BrowserWindow, ipcMain } = require('electron');
@@ -95,7 +95,7 @@ function createProject(type, name) {
      * To-DO: Create error messages in Gorciu Studio pre-editor
     */
 
-    const dir = path.join(os.homedir(), 'gs/repos', name);
+    const dir = path.join(os.homedir(), '.gs/repos', name);
 
     if (name == '') {
         return runGorciuStudio(); // Project cannot be blank
@@ -127,7 +127,7 @@ function createProject(type, name) {
  * @returns {object|null}      The project data, or null if an error occurs.
  */
 function readProjectFile(projectName) {
-    const projectPath = path.join(os.homedir(), 'gs/repos', projectName, 'project.json');
+    const projectPath = path.join(os.homedir(), '.gs/repos', projectName, 'project.json');
     try {
         const data = fs.readFileSync(projectPath, 'utf-8');
         return JSON.parse(data);
@@ -142,7 +142,7 @@ function readProjectFile(projectName) {
  * @returns {Array<object>}    The list of projects with their data.
  */
 function getProjects() {
-    const reposDir = path.join(os.homedir(), 'gs/repos');
+    const reposDir = path.join(os.homedir(), '.gs/repos');
     try {
         return fs.readdirSync(reposDir).map(projectName => {
             const projectPath = path.join(reposDir, projectName, 'project.json');
@@ -175,7 +175,7 @@ ipcMain.on('create-project', (event, type, name) => {
 ipcMain.on('open-project', (event, projectName) => {
     const projectData = readProjectFile(projectName);
     if (projectData) {
-        const projectPath = path.join(os.homedir(), 'gs/repos', projectName);
+        const projectPath = path.join(os.homedir(), '.gs/repos', projectName);
         runEditor(projectPath, false);
     } else {
         runGorciuStudio(); // Return to pre-editor if project cannot be read
