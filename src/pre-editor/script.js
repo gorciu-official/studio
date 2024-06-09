@@ -15,7 +15,7 @@
  * @param {String} path 
 */
 function startEditor(path) {
-    window.electronAPI.runEditor(encodeURIComponent(path), false);
+    window.electronAPI.runEditor(path, false);
     window.close();
 }
 

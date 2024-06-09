@@ -21,6 +21,9 @@ function changeTitle(newTitle) {
 
 // The resources has been loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Change title to `welcome`
-    changeTitle('Welcome');
+    // Get search params
+    var params = new URLSearchParams(window.location.search);
+
+    // Change title to project path
+    changeTitle(params.get('project'));
 })
