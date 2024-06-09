@@ -25,5 +25,5 @@ document.addEventListener('DOMContentLoaded', () => {
     var params = new URLSearchParams(window.location.search);
 
     // Change title to project path
-    changeTitle(params.get('project'));
+    changeTitle(params.get('project').replaceAll('\\', '/'));
 })

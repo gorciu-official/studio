@@ -107,7 +107,7 @@ function createProject(type, name) {
         return runGorciuStudio(); // Invalid type, return to pre-editor
     }
 
-    fs.mkdirSync(dir, { recursive: true });
+    fs.mkdirSync(path.join(dir, '/src'), { recursive: true });
 
     // Create initial project JSON file
     const projectData = {
