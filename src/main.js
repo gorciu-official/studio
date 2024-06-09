@@ -57,7 +57,7 @@ function createNewWindow(filename, search) {
 }
 
 /**
- * Runs a new Gorciu Studio instance.
+ * Runs a new Gorciu Studio pre-editor instance.
  */
 function runGorciuStudio() {
     preEditor = true;
@@ -132,7 +132,7 @@ app.on('window-all-closed', () => {
 
 // Handle app activation (macOS specific behavior)
 app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
+    if (BrowserWindow.getAllWindows().length === 0 && preEditor == null) {
         runGorciuStudio();
     }
 });
