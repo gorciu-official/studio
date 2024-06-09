@@ -34,6 +34,19 @@ function createEditor(type) {
 }
 
 /**
+ * Get project info
+*/
+function nameType(type) {
+    if (type=="default-normal") {
+        return "Basic project";
+    }
+    if (type=="default-basic") {
+        return "Shorted project";
+    }
+    return "Not valid";
+}
+
+/**
  * A function for getting projects via Electron API
 */
 function getProjects() {
@@ -54,7 +67,7 @@ function getProjects() {
             projectH3.textContent = project.name;
 
             const projectDesc = document.createElement('p');
-            projectDesc.textContent = 'Type: ' + project.about.type;
+            projectDesc.textContent = 'Type: ' + nameType(project.about.type);
 
             projectDiv.appendChild(projectH3);
             projectDiv.appendChild(projectDesc);
