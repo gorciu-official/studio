@@ -19,11 +19,31 @@ function changeTitle(newTitle) {
     document.querySelector('title').textContent = newTitle;
 }
 
-// The resources has been loaded
+// Display files
+function displayFiles(files) {
+    const fileContainer = document.createElement('div');
+    fileContainer.style.padding = '5px';
+    files.forEach(file => {
+        const fileElement = document.createElement('div');
+        fileElement.textContent = file;
+        fileContainer.appendChild(fileElement);
+    });
+    document.body.appendChild(fileContainer);
+}
+
+// The resources have been loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Get search params
     var params = new URLSearchParams(window.location.search);
 
     // Change title to project path
     changeTitle(params.get('project').replaceAll('\\', '/'));
-})
+
+    // Get and display files in src
+    const projectPath = params.get('project');
+    if (projectPath) {
+        window.electronAPI.getFilesInSrc(projectPath, (files) => {
+            displayFiles(files);
+        });
+    }
+});

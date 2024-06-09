@@ -19,5 +19,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
         ipcRenderer.once('projects-list', (event, projects) => {
             callback(projects);
         });
+    },
+    getFilesInSrc: (projectPath, callback) => {
+        ipcRenderer.send('get-files-in-src', projectPath);
+        ipcRenderer.once('files-list', (event, files) => {
+            callback(files);
+        });
     }
 });

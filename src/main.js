@@ -188,6 +188,18 @@ ipcMain.on('get-projects', (event) => {
     event.sender.send('projects-list', projects);
 });
 
+// Handle another IPC event
+ipcMain.on('get-files-in-src', (event, projectPath) => {
+    const srcPath = path.join(projectPath, 'src');
+    fs.readdir(srcPath, (err, files) => {
+        if (err) {
+            event.reply('files-list', []);
+        } else {
+            event.reply('files-list', files);
+        }
+    });
+});
+
 // Run Gorciu Studio when the app is ready
 app.whenReady().then(runGorciuStudio);
 
