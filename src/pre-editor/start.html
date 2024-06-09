@@ -67,8 +67,10 @@
         </div>
     </div>
     <div class="projects-bar">
+        <h2>Your projects</h2>
+        <div class="projects-scroll"></div>
         <h2>Create project</h2>
-        <input type="text" class="pn" placeholder="Project name" value="project" style="margin-bottom:5px;width:calc(100% - 20px);padding:5px;color:black;border-radius:5px;border:none;outline:none;">
+        <input type="text" class="pn" placeholder="Project name" value="projectName" style="margin-bottom:5px;width:calc(100% - 20px);padding:5px;color:black;border-radius:5px;border:none;outline:none;">
         <div class="projects-scroll">
             <div class="project" onclick="createEditor('default-normal')">
                 <h3>Basic project</h3>
@@ -80,19 +82,6 @@
             </div>
         </div>
     </div>
-    <script>
-        function startEditor(path) {
-            window.electronAPI.runEditor('path/to/file', false);
-            window.close();
-        }
-        function createEditor(type) {
-            var name = document.querySelector('.pn').value;
-            if (name == '') {
-                name = 'project';
-            }
-            window.electronAPI.createEditor(type, name);
-            window.close();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

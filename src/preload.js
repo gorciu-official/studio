@@ -13,5 +13,11 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
     runEditor: (filePath, isOpenedFirst) => ipcRenderer.send('run-editor', filePath, isOpenedFirst),
-    createEditor: (type, name) => ipcRenderer.send('create-project', type, name)
+    createProject: (type, name) => ipcRenderer.send('create-project', type, name),
+    getProjects: (callback) => {
+        ipcRenderer.send('get-projects');
+        ipcRenderer.once('projects-list', (event, projects) => {
+            callback(projects);
+        });
+    }
 });

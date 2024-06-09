@@ -108,7 +108,57 @@ function createProject(type, name) {
     }
 
     fs.mkdirSync(dir, { recursive: true });
+
+    // Create initial project JSON file
+    const projectData = {
+        type: type,
+        name: name,
+        createdAt: new Date().toISOString(),
+        files: []
+    };
+    fs.writeFileSync(path.join(dir, 'project.json'), JSON.stringify(projectData, null, 2));
+
     return runEditor(dir, true);
+}
+
+/**
+ * Reads a project from a JSON file.
+ * @param {string} projectName The name of the project.
+ * @returns {object|null}      The project data, or null if an error occurs.
+ */
+function readProjectFile(projectName) {
+    const projectPath = path.join(os.homedir(), 'gs/repos', projectName, 'project.json');
+    try {
+        const data = fs.readFileSync(projectPath, 'utf-8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Error reading project file:', error);
+        return null;
+    }
+}
+
+/**
+ * Gets the list of projects along with their project.json content.
+ * @returns {Array<object>}    The list of projects with their data.
+ */
+function getProjects() {
+    const reposDir = path.join(os.homedir(), 'gs/repos');
+    try {
+        return fs.readdirSync(reposDir).map(projectName => {
+            const projectPath = path.join(reposDir, projectName, 'project.json');
+            if (fs.existsSync(projectPath)) {
+                const projectData = readProjectFile(projectName);
+                return {
+                    name: projectName,
+                    about: projectData
+                };
+            }
+            return null;
+        }).filter(project => project !== null);
+    } catch (error) {
+        console.error('Error getting projects:', error);
+        return [];
+    }
 }
 
 // Handle IPC event to run editor
@@ -119,6 +169,23 @@ ipcMain.on('run-editor', (event, filePath, isOpenedFirst) => {
 // Handle IPC event to create a new project
 ipcMain.on('create-project', (event, type, name) => {
     createProject(type, name);
+});
+
+// Handle IPC event to open an existing project from a project name
+ipcMain.on('open-project', (event, projectName) => {
+    const projectData = readProjectFile(projectName);
+    if (projectData) {
+        const projectPath = path.join(os.homedir(), 'gs/repos', projectName);
+        runEditor(projectPath, false);
+    } else {
+        runGorciuStudio(); // Return to pre-editor if project cannot be read
+    }
+});
+
+// Handle IPC event to get the list of projects
+ipcMain.on('get-projects', (event) => {
+    const projects = getProjects();
+    event.sender.send('projects-list', projects);
 });
 
 // Run Gorciu Studio when the app is ready
