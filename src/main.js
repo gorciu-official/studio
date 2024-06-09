@@ -114,7 +114,7 @@ function createProject(type, name) {
         type: type,
         name: name,
         createdAt: new Date().toISOString(),
-        files: []
+        path: dir
     };
     fs.writeFileSync(path.join(dir, 'project.json'), JSON.stringify(projectData, null, 2));
 

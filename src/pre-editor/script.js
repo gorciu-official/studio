@@ -15,7 +15,7 @@
  * @param {String} path 
 */
 function startEditor(path) {
-    window.electronAPI.runEditor(path, false);
+    window.electronAPI.runEditor(encodeURIComponent(path), false);
     window.close();
 }
 
@@ -45,6 +45,10 @@ function getProjects() {
 
             const projectDiv = document.createElement('div');
             projectDiv.classList.add('project');
+
+            projectDiv.addEventListener('click', () => {
+                startEditor(project.about.path);
+            })
 
             const projectH3 = document.createElement('h3');
             projectH3.textContent = project.name;

@@ -12,16 +12,11 @@
 // Say that the script has been loaded
 console.log("Loaded `script.js`");
 
-// Gets an element
-function get(pattern) {
-    return document.querySelector(pattern);
-}
-
 // Changes title
 function changeTitle(newTitle) {
     newTitle = newTitle + ' - Gorciu Studio';
-    get('.title-bar .title').textContent = newTitle;
-    get('title').textContent = newTitle;
+    document.querySelector('.title-bar .title').textContent = newTitle;
+    document.querySelector('title').textContent = newTitle;
 }
 
 // The resources has been loaded
