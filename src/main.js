@@ -190,14 +190,33 @@ ipcMain.on('get-projects', (event) => {
 
 // Handle another IPC event
 ipcMain.on('get-files-in-src', (event, projectPath) => {
-    const srcPath = path.join(projectPath, 'src');
-    fs.readdir(srcPath, (err, files) => {
-        if (err) {
-            event.reply('files-list', []);
-        } else {
-            event.reply('files-list', files);
-        }
-    });
+    const getFilesRecursively = (dir) => {
+        const results = [];
+        const list = fs.readdirSync(dir);
+        list.forEach((file) => {
+            const filePath = path.join(dir, file);
+            const stat = fs.statSync(filePath);
+            if (stat && stat.isDirectory()) {
+                results.push({
+                    name: file,
+                    children: getFilesRecursively(filePath)
+                });
+            } else {
+                results.push({
+                    name: file
+                });
+            }
+        });
+        return results;
+    };
+
+    try {
+        const files = getFilesRecursively(path.join(projectPath, 'src'));
+        event.reply('files-list', files);
+    } catch (err) {
+        console.error('Error reading files:', err);
+        event.reply('files-list', []);
+    }
 });
 
 // Run Gorciu Studio when the app is ready

@@ -79,6 +79,26 @@ ul {
     overflow: auto;
 }
 
+.files ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.files ul.root {
+    padding-left: 0;
+}
+
+.files li {
+    padding: 5px 0;
+}
+
+.no-files {
+    color: #999;
+    font-style: italic;
+    padding: 10px;
+    text-align: center;
+}
+
 .editor {
     position: absolute;
     left: 0;

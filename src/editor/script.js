@@ -21,14 +21,33 @@ function changeTitle(newTitle) {
 
 // Display files
 function displayFiles(files) {
-    const fileContainer = document.createElement('div');
-    fileContainer.style.padding = '5px';
-    files.forEach(file => {
-        const fileElement = document.createElement('div');
-        fileElement.textContent = file;
-        fileContainer.appendChild(fileElement);
-    });
-    document.body.appendChild(fileContainer);
+    const fileContainer = document.querySelector('.files');
+
+    // Clear previous files
+    fileContainer.innerHTML = '';
+
+    if (files.length === 0) {
+        const emptyMessage = document.createElement('div');
+        emptyMessage.textContent = 'No files found.';
+        emptyMessage.classList.add('no-files');
+        fileContainer.appendChild(emptyMessage);
+    } else {
+        const buildTree = (nodes, parentElement, isRoot = false) => {
+            const ulElement = document.createElement('ul');
+            if (isRoot) ulElement.classList.add('root');
+            parentElement.appendChild(ulElement);
+            nodes.forEach(node => {
+                const liElement = document.createElement('li');
+                liElement.textContent = node.name;
+                ulElement.appendChild(liElement);
+                if (node.children) {
+                    buildTree(node.children, liElement);
+                }
+            });
+        };
+
+        buildTree(files, fileContainer, true);
+    }
 }
 
 // The resources have been loaded
