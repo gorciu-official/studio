@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "The helper package for Gorciu Studio",
   "main": "main.js",
+  "private": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gorciu-official/studio.git"
