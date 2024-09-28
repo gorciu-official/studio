@@ -1,0 +1,22 @@
+{
+  "name": "@gorciu-studio/helpers",
+  "version": "1.0.0",
+  "description": "The helper package for Gorciu Studio",
+  "main": "main.js",
+  "scripts": {
+    "test": "po chuj mi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorciu-official/studio.git"
+  },
+  "keywords": [
+    "gshelpers"
+  ],
+  "author": "Gorciu",
+  "license": "SEE LICENSE IN ../LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/gorciu-official/studio/issues"
+  },
+  "homepage": "https://github.com/gorciu-official/studio#readme"
+}

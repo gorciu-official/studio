@@ -18,6 +18,14 @@
     "studio",
     "gs"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorciu-official/studio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gorciu-official/studio/issues"
+  },
+  "homepage": "https://github.com/gorciu-official/studio#readme",
   "scripts": {
     "start": "npm install && tsc && electron ."
   },
