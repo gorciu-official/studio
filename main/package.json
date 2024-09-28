@@ -1,0 +1,25 @@
+{
+  "name": "gorciu-studio",
+  "version": "1.0.0",
+  "description": "Another code editor with superpowers.",
+  "main": "dist/main.js",
+  "private": true,
+  "author": "Gorciu",
+  "maintainers": [
+    {
+      "name": "Gorciu",
+      "url": "https://github.com/gorciu-official/"
+    }
+  ],
+  "keywords": [
+    "editor",
+    "code",
+    "gorciu",
+    "studio",
+    "gs"
+  ],
+  "scripts": {
+    "start": "npm install && tsc && electron ."
+  },
+  "license": "SEE LICENSE IN ../LICENSE.md"
+}
