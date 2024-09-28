@@ -1,7 +1,0 @@
-# The ignored files and folders
-
-# Special .git directory
-.git
-
-# Node.JS modules
-node_modules/
