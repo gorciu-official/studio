@@ -1,7 +1,3 @@
-<div align="center">
-    ![Logo](https://avatars.githubusercontent.com/u/122084593?s=400&u=da6498d87e2dd0ec6ed7aa8c641c41ec6ceb7e0b&v=4)
-</div>
-
 # Gorciu Studio
 
 Another code editor for developing any your project. It is free and open source.
