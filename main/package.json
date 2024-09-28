@@ -29,5 +29,8 @@
   "scripts": {
     "start": "npm install && tsc && electron ."
   },
-  "license": "SEE LICENSE IN ../LICENSE.md"
+  "license": "SEE LICENSE IN ../LICENSE.md",
+  "dependencies": {
+    "@gorciu-studio/helpers": "^1.0.0"
+  }
 }
