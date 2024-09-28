@@ -1,5 +1,5 @@
 <div align="center">
-    [!LOGO](https://avatars.githubusercontent.com/u/122084593?s=400&u=da6498d87e2dd0ec6ed7aa8c641c41ec6ceb7e0b&v=4)
+    ![LOGO](https://avatars.githubusercontent.com/u/122084593?s=400&u=da6498d87e2dd0ec6ed7aa8c641c41ec6ceb7e0b&v=4)
 </div>
 
 # Gorciu Studio
